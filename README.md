@@ -11,6 +11,8 @@ receive a gift from a random family member.
 [TDD](http://en.wikipedia.org/wiki/Test-driven_development) was used for this exercise
  with the [pytest framework](http://docs.pytest.org/en/latest/).
 
+[This was a fun exercise that I knocked out in a half-day or so.]
+
 ## Prerequisites
 
 Install prerequisites as follows:
@@ -98,3 +100,4 @@ $
 - [ ] Conform code to `pylint`
 - [ ] Conform code to `pycodestyle`
 - [ ] Conform code to `pydocstyle`
+- [ ] Optional enhancement - prevent circular gift exchanges

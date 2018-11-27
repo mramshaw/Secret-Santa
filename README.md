@@ -23,6 +23,32 @@ Run unit tests as follows:
 
     $ pytest -v
 
+This should look as follows:
+
+```bash
+$ pytest -v
+==================================================================================================================== test session starts =====================================================================================================================
+platform linux2 -- Python 2.7.12, pytest-3.10.1, py-1.7.0, pluggy-0.8.0 -- /usr/bin/python
+cachedir: .pytest_cache
+rootdir: /home/owner/Documents/Python/Secret-Santa, inifile:
+collected 11 items
+
+secret_santa_test.py::test_ExceptionWithDuplicateFamilyMember PASSED                                                                                                                                                                                   [  9%]
+secret_santa_test.py::test_ExceptionWithPartnerAsDuplicatedFamilyMember PASSED                                                                                                                                                                         [ 18%]
+secret_santa_test.py::test_ExceptionWithDuplicatePartner PASSED                                                                                                                                                                                        [ 27%]
+secret_santa_test.py::test_canAddFamilyMembers PASSED                                                                                                                                                                                                  [ 36%]
+secret_santa_test.py::test_getUnmatchedMembersCount PASSED                                                                                                                                                                                             [ 45%]
+secret_santa_test.py::test_checkForValidGiver PASSED                                                                                                                                                                                                   [ 54%]
+secret_santa_test.py::test_ExceptionWithOnlyPartners PASSED                                                                                                                                                                                            [ 63%]
+secret_santa_test.py::test_ExceptionWithOnlyFamily PASSED                                                                                                                                                                                              [ 72%]
+secret_santa_test.py::test_canSolveGoodSolution1 PASSED                                                                                                                                                                                                [ 81%]
+secret_santa_test.py::test_canSolveGoodSolution2 PASSED                                                                                                                                                                                                [ 90%]
+secret_santa_test.py::test_canSolveGoodSolution3 PASSED                                                                                                                                                                                                [100%]
+
+================================================================================================================= 11 passed in 0.09 seconds ==================================================================================================================
+$
+```
+
 ## Run
 
 Run the application as follows:

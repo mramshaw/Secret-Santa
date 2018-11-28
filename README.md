@@ -1,5 +1,6 @@
 # Secret Santa
 
+[![Known Vulnerabilities](http://snyk.io/test/github/mramshaw/Secret-Santa/badge.svg?style=plastic&targetFile=requirements.txt)](http://snyk.io/test/github/mramshaw/Secret-Santa?style=plastic&targetFile=requirements.txt)
 [![Build status](http://travis-ci.org/mramshaw/Secret-Santa.svg?branch=master)](http://travis-ci.org/mramshaw/Secret-Santa)
 [![Coverage Status](http://codecov.io/github/mramshaw/Secret-Santa/coverage.svg?branch=master)](http://codecov.io/github/mramshaw/Secret-Santa?branch=master)
 [![GitHub release](http://img.shields.io/github/release/mramshaw/Secret-Santa.svg?style=flat-square)](http://github.com/mramshaw/Secret-Santa/releases)

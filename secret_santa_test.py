@@ -22,6 +22,12 @@ def test_ExceptionWithPartnerAsDuplicatedFamilyMember(gift_exchange):
         gift_exchange.add_partners("Fred", "Fred")
 
 
+def test_ExceptionWithDuplicateMember(gift_exchange):
+    with pytest.raises(Exception):
+        gift_exchange.add_partners("Fred", "Wilma")
+        gift_exchange.add_partners("Fred", "Betty")
+
+
 def test_ExceptionWithDuplicatePartner(gift_exchange):
     with pytest.raises(Exception):
         gift_exchange.add_partners("Fred", "Wilma")

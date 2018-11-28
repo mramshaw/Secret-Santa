@@ -26,10 +26,10 @@ class GiftExchange:
 
         self.add_family_member(partner)
         if member in self._PARTNERS:
-            raise Exception("Duplicate partner entered")
+            raise Exception("Duplicate partner entered (member)")
         self._PARTNERS[member] = partner
         if partner in self._PARTNERS:
-            raise Exception("Duplicate partner entered")
+            raise Exception("Duplicate partner entered (partner)")
         self._PARTNERS[partner] = member
 
     def get_family_member_count(self):

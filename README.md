@@ -13,6 +13,9 @@ Family members register for a gift exchange. Partners of family members cannot
 receive gifts from that family member (and vice-versa). Everyone else will
 receive a gift from a random family member.
 
+Each family member (and partner) must have a unique name. Duplicate names will
+create runtime exceptions.
+
 [TDD](http://en.wikipedia.org/wiki/Test-driven_development) was used for this exercise
  with the [pytest framework](http://docs.pytest.org/en/latest/).
 
@@ -108,7 +111,9 @@ Code coverage is __88%__ which seems acceptable.
 [Opinions differ on what is an acceptable level of code coverage.
 As 100% code coverage is not always reasonable (for instance in this
 case), my opinion is that 70% is a minimum acceptable value. But a
-higher level of code coverage is of course very desirable.]
+higher level of code coverage is of course very desirable. Adding
+a new test for the first uncaught exception (__ExceptionWithDuplicateMember__)
+raises the code coverage to __89%__ - which is an improvement.]
 
 Of course, we can drill down into the code with an HTML report as well:
 
@@ -197,7 +202,7 @@ $
 ## To Do
 
 - [x] Add coverage reporting
-- [ ] Increase code coverage
+- [x] Increase code coverage
 - [ ] Conform code to `pylint`
 - [ ] Conform code to `pycodestyle`
 - [ ] Conform code to `pydocstyle`

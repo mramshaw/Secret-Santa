@@ -9,17 +9,19 @@ A simple Secret Santa gift exchange
 
 ## Motivation
 
-Family members register for a gift exchange. Partners of family members cannot
-receive gifts from that family member (and vice-versa). Everyone else will
-receive a gift from a random family member.
+At seasonal parties and other gatherings, attendees may register for a gift exchange.
+Partners of attendees cannot receive gifts from that attendee (and vice-versa).
+Everyone else will receive a gift from a random attendee.
 
-Each family member (and partner) must have a unique name. Duplicate names will
-create runtime exceptions.
+Each attendee (and partner) must have a unique name. Duplicate names will create exceptions.
 
 [TDD](http://en.wikipedia.org/wiki/Test-driven_development) was used for this exercise
- with the [pytest framework](http://docs.pytest.org/en/latest/).
+ with the [pytest](http://docs.pytest.org/en/latest/) framework.
 
-[This was a fun exercise that I knocked out in a half-day or so.]
+[This was a fun exercise - I knocked out my first effort in a half-day or so. But it turned
+ out that I had not fully understood the problem. Like a lot of random walks, the solution
+ is not always deterministic. This led to some re-work. Luckily, TDD makes this relatively
+ easy, at least in terms of testing time.]
 
 ## Prerequisites
 
@@ -193,6 +195,87 @@ Wilma <= Barney
 $
 ```
 
+## Failure
+
+For some combinations of gift exchangers, a solution may not be possible.
+
+In that case an error message will be printed and the app will terminate:
+
+```bash
+$ python secret_santa.py
+Enter family members and their partners
+
+Family member (or CR to stop): fred
+Family member's partner (CR if none): wilma
+
+Family member (or CR to stop):
+
+All family members entered, working out exchanges
+
+Not enough unpartnered members for a solution!
+
+$
+```
+
+## Retries
+
+For some combinations of gift exchangers, the algorithm may not produce a solution.
+
+In that case, the user will be prompted to retry. This should look like:
+
+```bash
+$ python secret_santa.py
+Enter family members and their partners
+
+Family member (or CR to stop): fred
+Family member's partner (CR if none): wilma
+
+Family member (or CR to stop): pebbles
+Family member's partner (CR if none):
+
+Family member (or CR to stop): dino
+Family member's partner (CR if none):
+
+Family member (or CR to stop):
+
+All family members entered, working out exchanges
+
+Failed to solve, retry ('n' to stop)?
+Solved = {'pebbles': 'fred', 'dino': 'wilma', 'wilma': 'dino', 'fred': 'pebbles'}
+
+pebbles <= fred
+dino <= wilma
+wilma <= dino
+fred <= pebbles
+
+I hope your gathering is successful!
+$
+```
+
+Of course, the user can stop the retries by entering "__n__" at any time:
+
+```bash
+$ python secret_santa.py
+Enter family members and their partners
+
+Family member (or CR to stop): fred
+Family member's partner (CR if none): wilma
+
+Family member (or CR to stop): pebbles
+Family member's partner (CR if none):
+
+Family member (or CR to stop): dino
+Family member's partner (CR if none):
+
+Family member (or CR to stop):
+
+All family members entered, working out exchanges
+
+Failed to solve, retry ('n' to stop)? n
+Okay, stopping now
+$
+```
+
 ## Versions
 
 * python __2.7.12__
@@ -201,9 +284,14 @@ $
 
 ## To Do
 
+- [x] Add custom exceptions
+- [x] Add logic for unsolvable cases
+- [x] Add retry logic for bad solutions
 - [x] Add coverage reporting
 - [x] Increase code coverage
 - [ ] Conform code to `pylint`
 - [ ] Conform code to `pycodestyle`
 - [ ] Conform code to `pydocstyle`
+- [ ] Conform code to `pydoc`
 - [ ] Optional enhancement - prevent circular gift exchanges
+- [ ] Optional enhancement - prevent intra-family gift exchanges

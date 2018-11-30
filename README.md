@@ -113,9 +113,7 @@ Code coverage is __88%__ which seems acceptable.
 [Opinions differ on what is an acceptable level of code coverage.
 As 100% code coverage is not always reasonable (for instance in this
 case), my opinion is that 70% is a minimum acceptable value. But a
-higher level of code coverage is of course very desirable. Adding
-a new test for the first uncaught exception (__ExceptionWithDuplicateMember__)
-raises the code coverage to __89%__ - which is an improvement.]
+higher level of code coverage is of course very desirable.]
 
 Of course, we can drill down into the code with an HTML report as well:
 
@@ -148,13 +146,17 @@ Coverage HTML written to dir htmlcov
 $
 ```
 
-Looking at `htmlcov/index.html` and driling down into `secret_santa.py` we can see that
+Looking at `htmlcov/index.html` and drilling down into `secret_santa.py` we can see that
 we do not have any coverage in our `main` routine (this is expected) but there are also
 two exceptions that do not get tested. The second is a catch-all, so cannot be fixed.
 
 However, the first exception not being tested is an oversight. This means another test
 should be written to check for this exception. And so code coverage has highlighted a
 soft area in our testing. This is unlikely to be critical, but better safe than sorry.
+
+[Adding a test for the first uncaught exception raises the code coverage to __89%__.
+ But then the addition of more code to the `main` routine dropped this number back
+ down to __88%__.]
 
 ## Run
 
@@ -213,7 +215,6 @@ Family member (or CR to stop):
 All family members entered, working out exchanges
 
 Not enough unpartnered members for a solution!
-
 $
 ```
 

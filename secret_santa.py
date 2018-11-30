@@ -161,7 +161,7 @@ if __name__ == '__main__':
                 print "Okay, stopping now"
                 sys.exit(1)
         except gift_exchange.NoSolutionPossibleException as nspe:
-            print nspe.args[0], "\n"
+            print nspe.args[0]
             sys.exit(1)
 
     print "\nI hope your gathering is successful!"

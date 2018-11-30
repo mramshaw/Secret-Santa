@@ -154,7 +154,7 @@ However, the first exception not being tested is an oversight. This means anothe
 should be written to check for this exception. And so code coverage has highlighted a
 soft area in our testing. This is unlikely to be critical, but better safe than sorry.
 
-[Adding a test for the first uncaught exception raises the code coverage to __89%__.
+[Adding a test for the first uncaught exception raised the code coverage to __89%__.
  But then the addition of more code to the `main` routine dropped this number back
  down to __88%__.]
 

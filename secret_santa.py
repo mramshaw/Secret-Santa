@@ -121,6 +121,7 @@ class GiftExchange:
     def match_members(self, items):
         """Solve the gift exchanges."""
         self.check_for_valid_solution()
+        self.reset_unmatched_members_count()
         solved = {}
         for i in range(len(items)):
             solved[items[i]] = self.get_next_free_present_giver(items, i)
@@ -151,7 +152,6 @@ if __name__ == '__main__':
     retry = True
     while retry:
         try:
-            gift_exchange.reset_unmatched_members_count()
             solution = gift_exchange.match_members(gift_exchange.shuffle_members())
             for s in solution:
                 print s, "<=", solution[s]

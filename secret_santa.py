@@ -3,12 +3,12 @@
 """
 A simple gift exchange.
 
-Family members register for a gift exchange.
-The partner of a family member cannot receive a gift from that family member
-(and vice-versa). Everyone else will receive a gift from a random family member.
+Gathering attendees register for a gift exchange. The partner of an
+attendee cannot receive a gift from that attendee (and vice-versa).
+Everyone else will receive a gift from a random attendee.
 """
 
-from random import *
+from random import shuffle
 
 import sys
 
@@ -16,8 +16,8 @@ import sys
 class GiftExchange:
     """GiftExchange represents a gift exchange."""
 
-    class DuplicateFamilyMemberException(Exception):
-        """Family member names must be unique."""
+    class DuplicateAttendeeException(Exception):
+        """Gathering attendee names must be unique."""
 
         pass
 
@@ -27,7 +27,7 @@ class GiftExchange:
         pass
 
     class NoSolutionPossibleException(Exception):
-        """There are not enough family members (of the correct types) for a solution."""
+        """There are not enough attendees for a solution."""
 
         pass
 
@@ -41,23 +41,28 @@ class GiftExchange:
         self._GIFT_EXCHANGERS = {}
         self._PARTNERS = {}
 
-    def add_family_member(self, member):
-        """Add a gift exchangers."""
-        if member in self._GIFT_EXCHANGERS:
-            raise self.DuplicateFamilyMemberException(member)
-        self._GIFT_EXCHANGERS[member] = 1
+    def add_attendee(self, attendee):
+        """Add a gift exchanger."""
+        if attendee in self._GIFT_EXCHANGERS:
+            raise self.DuplicateAttendeeException(attendee)
+        self._GIFT_EXCHANGERS[attendee] = 1
 
-    def add_partners(self, member, partner):
-        """Add a gift exchangers' partner, and then add both ends of the partnership."""
-        self.add_family_member(partner)
-        if member in self._PARTNERS:
-            raise self.DuplicatePartnerException("member", member)
-        self._PARTNERS[member] = partner
+    def add_partnership(self, attendee, partner):
+        """
+        Add a gift exchangers' partnership.
+
+        First add the gift echangers' partner,
+        and then both ends of the partnership.
+        """
+        self.add_attendee(partner)
+        if attendee in self._PARTNERS:
+            raise self.DuplicatePartnerException("attendee", attendee)
+        self._PARTNERS[attendee] = partner
         if partner in self._PARTNERS:
             raise self.DuplicatePartnerException("partner", partner)
-        self._PARTNERS[partner] = member
+        self._PARTNERS[partner] = attendee
 
-    def get_family_member_count(self):
+    def get_attendee_count(self):
         """Get the count of gift exchangers."""
         return len(self._GIFT_EXCHANGERS)
 
@@ -65,8 +70,8 @@ class GiftExchange:
         """Get the count of partnerships."""
         return len(self._PARTNERS) / 2
 
-    def get_unmatched_members_count(self):
-        """Get the count of unmatched members."""
+    def get_unmatched_attendees_count(self):
+        """Get the count of unmatched gathering attendees."""
         count = 0
         for mbr in self._GIFT_EXCHANGERS:
             if self._GIFT_EXCHANGERS[mbr] == 1:
@@ -89,8 +94,8 @@ class GiftExchange:
             indx += 1
         raise self.SolutionNotFoundException()
 
-    def reset_unmatched_members_count(self):
-        """Reset the present counts for the gift exchangers."""
+    def reset_unmatched_attendees_count(self):
+        """Reset the present counts for all of the gift exchangers."""
         for exchgr in self._GIFT_EXCHANGERS:
             self._GIFT_EXCHANGERS[exchgr] = 1
 
@@ -104,28 +109,37 @@ class GiftExchange:
         return True
 
     def check_for_valid_solution(self):
-        """Check if a valid solutions is possible."""
-        if self.get_family_member_count() < 2:
-            raise self.NoSolutionPossibleException("Not enough family members for a solution!")
-        if self.get_family_member_count() == 2 and self.get_partnership_count() == 1:
-            raise self.NoSolutionPossibleException("Not enough unpartnered members for a solution!")
-        if self.get_family_member_count() == 3 and self.get_partnership_count() == 1:
-            raise self.NoSolutionPossibleException("Not enough unpartnered members for a solution!")
+        """Check if a valid solution is possible."""
+        attendee_count = self.get_attendee_count()
+        partnership_count = self.get_partnership_count()
+        if attendee_count < 2:
+            raise self.NoSolutionPossibleException(
+                    "Not enough attendees for a solution!")
+        if attendee_count == 2 and partnership_count == 1:
+            raise self.NoSolutionPossibleException(
+                    "Not enough unpartnered attendees for a solution!")
+        if attendee_count == 3 and partnership_count == 1:
+            raise self.NoSolutionPossibleException(
+                    "Not enough unpartnered attendees for a solution!")
 
-    def shuffle_members(self):
-        """Shuffle the gift exchangers (only pseudo-random but that's good enough)."""
+    def shuffle_attendees(self):
+        """
+        Shuffle the gift exchangers.
+
+        (This is only pseudo-random but that's good enough).
+        """
         items = self._GIFT_EXCHANGERS.keys()
         shuffle(items)
         return items
 
-    def match_members(self, items):
-        """Solve the gift exchanges."""
+    def match_attendees(self, items):
+        """Solve the gift exchange."""
         self.check_for_valid_solution()
-        self.reset_unmatched_members_count()
+        self.reset_unmatched_attendees_count()
         solved = {}
         for i in range(len(items)):
             solved[items[i]] = self.get_next_free_present_giver(items, i)
-        if self.get_unmatched_members_count() > 0:
+        if self.get_unmatched_attendees_count() > 0:
             raise self.SolutionNotFoundException()
         print "Solved =", solved, "\n"
         return solved
@@ -135,29 +149,31 @@ if __name__ == '__main__':
 
     gift_exchange = GiftExchange()
 
-    print "Enter family members and their partners"
+    print "Enter gathering attendees and their partners"
 
     while True:
-        NAME = raw_input("\nFamily member (or CR to stop): ")
+        NAME = raw_input("\nAttendee (or CR to stop): ")
         if NAME == "":
             break
         else:
-            gift_exchange.add_family_member(NAME)
-            PARTNER = raw_input("Family member's partner (CR if none): ")
+            gift_exchange.add_attendee(NAME)
+            PARTNER = raw_input("Attendee's partner (CR if none): ")
             if PARTNER != "":
-                gift_exchange.add_partners(NAME, PARTNER)
+                gift_exchange.add_partnership(NAME, PARTNER)
 
-    print "\nAll family members entered, working out exchanges\n"
+    print "\nAll gathering attendees entered, working out exchanges\n"
 
     retry = True
     while retry:
         try:
-            solution = gift_exchange.match_members(gift_exchange.shuffle_members())
+            solution = gift_exchange.match_attendees(
+                gift_exchange.shuffle_attendees())
             for s in solution:
                 print s, "<=", solution[s]
             retry = False
         except gift_exchange.SolutionNotFoundException:
-            if raw_input("Failed to solve, retry ('n' to stop)? ").strip() == "n":
+            if raw_input("Failed to solve, retry ('n' to stop)? ").strip() \
+                 == "n":
                 print "Okay, stopping now"
                 sys.exit(1)
         except gift_exchange.NoSolutionPossibleException as nspe:

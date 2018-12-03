@@ -154,9 +154,7 @@ However, the first exception not being tested is an oversight. This means anothe
 should be written to check for this exception. And so code coverage has highlighted a
 soft area in our testing. This is unlikely to be critical, but better safe than sorry.
 
-[Adding a test for the first uncaught exception raised the code coverage to __89%__.
- But then the addition of more code to the `main` routine dropped this number back
- down to __88%__.]
+[Adding a test for the first uncaught exception raises the code coverage to __89%__.]
 
 ## Run
 
@@ -168,23 +166,23 @@ This should look something like the following:
 
 ```bash
 $ python secret_santa.py
-Enter family members and their partners
+Enter gathering attendees and their partners
 
-Family member (or CR to stop): Fred
-Family member's partner (CR if none): Wilma
+Attendee (or CR to stop): Fred
+Attendee's partner (CR if none): Wilma
 
-Family member (or CR to stop): Barney
-Family member's partner (CR if none): Betty
+Attendee (or CR to stop): Barney
+Attendee's partner (CR if none): Betty
 
-Family member (or CR to stop): Pebbles
-Family member's partner (CR if none): 
+Attendee (or CR to stop): Pebbles
+Attendee's partner (CR if none):
 
-Family member (or CR to stop): Bambam
-Family member's partner (CR if none): 
+Attendee (or CR to stop): Bambam
+Attendee's partner (CR if none):
 
-Family member (or CR to stop): 
+Attendee (or CR to stop):
 
-All family members entered, working out exchanges
+All gathering attendees entered, working out exchanges
 
 Solved = {'Pebbles': 'Bambam', 'Barney': 'Wilma', 'Fred': 'Pebbles', 'Betty': 'Fred', 'Bambam': 'Betty', 'Wilma': 'Barney'} 
 
@@ -205,14 +203,14 @@ In that case an error message will be printed and the app will terminate:
 
 ```bash
 $ python secret_santa.py
-Enter family members and their partners
+Enter gathering attendees and their partners
 
-Family member (or CR to stop): fred
-Family member's partner (CR if none): wilma
+Attendee (or CR to stop): fred
+Attendee's partner (CR if none): wilma
 
-Family member (or CR to stop):
+Attendee (or CR to stop):
 
-All family members entered, working out exchanges
+All gathering attendees entered, working out exchanges
 
 Not enough unpartnered members for a solution!
 $
@@ -226,20 +224,20 @@ In that case, the user will be prompted to retry. This should look like:
 
 ```bash
 $ python secret_santa.py
-Enter family members and their partners
+Enter gathering attendees and their partners
 
-Family member (or CR to stop): fred
-Family member's partner (CR if none): wilma
+Attendee (or CR to stop): fred
+Attendee's partner (CR if none): wilma
 
-Family member (or CR to stop): pebbles
-Family member's partner (CR if none):
+Attendee (or CR to stop): pebbles
+Attendee's partner (CR if none):
 
-Family member (or CR to stop): dino
-Family member's partner (CR if none):
+Attendee (or CR to stop): dino
+Attendee's partner (CR if none):
 
-Family member (or CR to stop):
+Attendee (or CR to stop):
 
-All family members entered, working out exchanges
+All gathering attendees entered, working out exchanges
 
 Failed to solve, retry ('n' to stop)?
 Solved = {'pebbles': 'fred', 'dino': 'wilma', 'wilma': 'dino', 'fred': 'pebbles'}
@@ -257,20 +255,20 @@ Of course, the user can stop the retries by entering "__n__" at any time:
 
 ```bash
 $ python secret_santa.py
-Enter family members and their partners
+Enter gathering attendees and their partners
 
-Family member (or CR to stop): fred
-Family member's partner (CR if none): wilma
+Attendee (or CR to stop): fred
+Attendee's partner (CR if none): wilma
 
-Family member (or CR to stop): pebbles
-Family member's partner (CR if none):
+Attendee (or CR to stop): pebbles
+Attendee's partner (CR if none):
 
-Family member (or CR to stop): dino
-Family member's partner (CR if none):
+Attendee (or CR to stop): dino
+Attendee's partner (CR if none):
 
-Family member (or CR to stop):
+Attendee (or CR to stop):
 
-All family members entered, working out exchanges
+All gathering attendees entered, working out exchanges
 
 Failed to solve, retry ('n' to stop)? n
 Okay, stopping now
@@ -290,9 +288,10 @@ $
 - [x] Add retry logic for bad solutions
 - [x] Add coverage reporting
 - [x] Increase code coverage
+- [x] Refactor to extend to seasonal (rather than simply family) gatherings
 - [ ] Conform code to `pylint`
-- [ ] Conform code to `pycodestyle`
-- [ ] Conform code to `pydocstyle`
-- [ ] Conform code to `pydoc`
+- [x] Conform code to `pycodestyle`
+- [x] Conform code to `pydocstyle`
+- [x] Conform code to `pydoc`
 - [ ] Optional enhancement - prevent circular gift exchanges
 - [ ] Optional enhancement - prevent intra-family gift exchanges

@@ -295,3 +295,4 @@ $
 - [x] Conform code to `pydoc`
 - [ ] Optional enhancement - prevent circular gift exchanges
 - [ ] Optional enhancement - prevent intra-family gift exchanges
+- [ ] Optional enhancement - allow for more than 1 present

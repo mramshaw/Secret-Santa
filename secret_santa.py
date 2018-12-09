@@ -147,7 +147,7 @@ class GiftExchange:
 
 if __name__ == '__main__':
 
-    gift_exchange = GiftExchange()
+    ge = GiftExchange()
 
     print "Enter gathering attendees and their partners"
 
@@ -155,28 +155,26 @@ if __name__ == '__main__':
         NAME = raw_input("\nAttendee (or CR to stop): ")
         if NAME == "":
             break
-        else:
-            gift_exchange.add_attendee(NAME)
-            PARTNER = raw_input("Attendee's partner (CR if none): ")
-            if PARTNER != "":
-                gift_exchange.add_partnership(NAME, PARTNER)
+        ge.add_attendee(NAME)
+        PARTNER = raw_input("Attendee's partner (CR if none): ")
+        if PARTNER != "":
+            ge.add_partnership(NAME, PARTNER)
 
     print "\nAll gathering attendees entered, working out exchanges\n"
 
     retry = True
     while retry:
         try:
-            solution = gift_exchange.match_attendees(
-                gift_exchange.shuffle_attendees())
+            solution = ge.match_attendees(ge.shuffle_attendees())
             for s in solution:
                 print s, "<=", solution[s]
             retry = False
-        except gift_exchange.SolutionNotFoundException:
+        except ge.SolutionNotFoundException:
             if raw_input("Failed to solve, retry ('n' to stop)? ").strip() \
                  == "n":
                 print "Okay, stopping now"
                 sys.exit(1)
-        except gift_exchange.NoSolutionPossibleException as nspe:
+        except ge.NoSolutionPossibleException as nspe:
             print nspe.args[0]
             sys.exit(1)
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# pylint: disable=C0103,W0621
+
 """Tests for a simple gift exchange."""
 
 import pytest

@@ -156,6 +156,66 @@ soft area in our testing. This is unlikely to be critical, but better safe than 
 
 [Adding a test for the first uncaught exception raises the code coverage to __89%__.]
 
+## Benchmarks
+
+Capturing historical benchmarks is probably yet another ___best practice___.
+
+Whenever code changes result in a substantial difference in execution time, this needs
+to be investigated. Of course, to do so we will need to capture historical benchmarks.
+
+The [pytest-benchmark](http://pypi.org/project/pytest-benchmark/) module was designed
+for just such a purpose.
+
+Run them as follows:
+
+```bash
+$ pytest -v --benchmark-only --benchmark-autosave
+==================================================================================================================== test session starts =====================================================================================================================
+platform linux2 -- Python 2.7.12, pytest-3.10.1, py-1.7.0, pluggy-0.8.0 -- /usr/bin/python
+cachedir: .pytest_cache
+benchmark: 3.2.2 (defaults: timer=time.time disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /home/owner/Documents/Python/Secret-Santa, inifile:
+plugins: cov-2.6.0, benchmark-3.2.2
+collected 20 items
+
+secret_santa_test.py::test_ExceptionWithDuplicateAttendeeName SKIPPED                                                                                                                                                                                  [  5%]
+secret_santa_test.py::test_ExceptionWithPartnerAsDuplicatedAttendee SKIPPED                                                                                                                                                                            [ 10%]
+secret_santa_test.py::test_ExceptionWithDuplicatedAttendee SKIPPED                                                                                                                                                                                     [ 15%]
+secret_santa_test.py::test_ExceptionWithDuplicatedPartner SKIPPED                                                                                                                                                                                      [ 20%]
+secret_santa_test.py::test_canAddAttendees SKIPPED                                                                                                                                                                                                     [ 25%]
+secret_santa_test.py::test_getUnmatchedAttendeesCount SKIPPED                                                                                                                                                                                          [ 30%]
+secret_santa_test.py::test_checkForValidGiver SKIPPED                                                                                                                                                                                                  [ 35%]
+secret_santa_test.py::test_NoValidSolution1 SKIPPED                                                                                                                                                                                                    [ 40%]
+secret_santa_test.py::test_NoValidSolution2 SKIPPED                                                                                                                                                                                                    [ 45%]
+secret_santa_test.py::test_NoValidSolution3 SKIPPED                                                                                                                                                                                                    [ 50%]
+secret_santa_test.py::test_canShuffleAttendees SKIPPED                                                                                                                                                                                                 [ 55%]
+secret_santa_test.py::test_resetUnmatchedAttendeesCount SKIPPED                                                                                                                                                                                        [ 60%]
+secret_santa_test.py::test_canSolveGoodSolution1 SKIPPED                                                                                                                                                                                               [ 65%]
+secret_santa_test.py::test_canSolveGoodSolution2 SKIPPED                                                                                                                                                                                               [ 70%]
+secret_santa_test.py::test_canSolveFlintstones1 SKIPPED                                                                                                                                                                                                [ 75%]
+secret_santa_test.py::test_canSolveFlintstones2 SKIPPED                                                                                                                                                                                                [ 80%]
+secret_santa_test.py::test_cannotSolveFlintstones1 SKIPPED                                                                                                                                                                                             [ 85%]
+secret_santa_test.py::test_cannotSolveFlintstones2 SKIPPED                                                                                                                                                                                             [ 90%]
+secret_santa_test.py::test_canSolveBenchmark1 PASSED                                                                                                                                                                                                   [ 95%]
+secret_santa_test.py::test_canSolveBenchmark2 PASSED                                                                                                                                                                                                   [100%]
+Saved benchmark data in: /home/owner/Documents/Python/Secret-Santa/.benchmarks/Linux-CPython-2.7-64bit/0014_8a13a4792486bbd1810a8463f268a7c841cdb6bf_20190127_224954_uncommited-changes.json
+
+
+
+-------------------------------------------------------------------------------------- benchmark: 2 tests --------------------------------------------------------------------------------------
+Name (time in us)               Min                Max               Mean            StdDev             Median               IQR            Outliers  OPS (Kops/s)            Rounds  Iterations
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_canSolveBenchmark2     16.9277 (1.0)      34.0939 (1.0)      17.9517 (1.0)      0.7467 (1.0)      17.8814 (1.0)      0.2384 (1.0)     5924;5924       55.7049 (1.0)       27777           1
+test_canSolveBenchmark1     17.8814 (1.06)     44.1074 (1.29)     19.0119 (1.06)     1.3694 (1.83)     19.0735 (1.07)     0.2384 (1.0)      607;3869       52.5987 (0.94)      14267           1
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+============================================================================================================ 2 passed, 18 skipped in 3.22 seconds ============================================================================================================
+$
+```
+
 ## Run
 
 Run the application as follows:
@@ -288,6 +348,7 @@ $
 - [x] Add retry logic for bad solutions
 - [x] Add coverage reporting
 - [x] Increase code coverage
+- [x] Add benchmarks for historical comparison purposes
 - [x] Refactor to extend to seasonal (rather than simply family) gatherings
 - [ ] Conform code to `pylint`
 - [x] Conform code to `pycodestyle`

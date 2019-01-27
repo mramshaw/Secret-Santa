@@ -196,3 +196,34 @@ def test_cannotSolveFlintstones2(gift_exchange):
     unsolvable_arr = ['Wilma', 'Barney', 'Bambam', 'Betty', 'Pebbles', 'Fred']
     with pytest.raises(gift_exchange.SolutionNotFoundException):
         gift_exchange.match_attendees(unsolvable_arr)
+
+
+# Now run some benchmarks for historical comparison purposes.
+
+
+def test_canSolveBenchmark1(benchmark):
+    """Benchmark a solvable arrangement getting solved."""
+    ge = GiftExchange()
+    ge.add_attendee("Fred")
+    ge.add_partnership("Fred", "Wilma")
+    ge.add_attendee("Barney")
+    ge.add_partnership("Barney", "Betty")
+    ge.add_attendee("Pebbles")
+    ge.add_attendee("Bambam")
+    solvable_arr = ['Barney', 'Wilma', 'Bambam', 'Betty', 'Fred', 'Pebbles']
+    result = benchmark(ge.match_attendees, solvable_arr)
+    assert ge.get_unmatched_attendees_count() == 0
+
+
+def test_canSolveBenchmark2(benchmark):
+    """Benchmark a solvable arrangement getting solved."""
+    ge = GiftExchange()
+    ge.add_attendee("Fred")
+    ge.add_partnership("Fred", "Wilma")
+    ge.add_attendee("Barney")
+    ge.add_partnership("Barney", "Betty")
+    ge.add_attendee("Pebbles")
+    ge.add_attendee("Bambam")
+    solvable_arr = ['Wilma', 'Bambam', 'Betty', 'Fred', 'Pebbles', 'Barney']
+    result = benchmark(ge.match_attendees, solvable_arr)
+    assert ge.get_unmatched_attendees_count() == 0

@@ -29,11 +29,19 @@ Install prerequisites as follows:
 
     $ pip install --user -r requirements.txt
 
+Or (for Python 3):
+
+    $ pip3 install --user -r requirements.txt
+
 ## Tests
 
 Run unit tests as follows:
 
     $ pytest -v
+
+Or (for Python 3):
+
+    $ python3 -m pytest -v
 
 This should look as follows:
 
@@ -337,9 +345,21 @@ $
 
 ## Versions
 
+There are some slight version differences between Python 2 and Python 3.
+
+#### Python 2
+
 * python __2.7.12__
 * pytest __3.10.1__
+* pytest-benchmark __3.2.2__
 * pytest-cov __2.6.0__
+
+#### Python 3
+
+* python __3.5.2__
+* pytest __4.1.1__
+* pytest-benchmark __3.2.2__
+* pytest-cov __2.6.1__
 
 ## To Do
 
@@ -354,7 +374,7 @@ $
 - [x] Conform code to `pycodestyle`
 - [x] Conform code to `pydocstyle`
 - [x] Conform code to `pydoc`
-- [ ] Migrate code to Python 3
+- [x] Make code Python 2 and Python 3 compatible
 - [ ] Optional enhancement - prevent circular gift exchanges
 - [ ] Optional enhancement - prevent intra-family gift exchanges
 - [ ] Optional enhancement - allow for more than 1 present

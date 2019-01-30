@@ -17,6 +17,13 @@ from random import shuffle
 import sys
 
 
+# Python 2 / 3 compatibility code - let Pylint flag this
+try:
+    raw_input          # Python 2
+except NameError:
+    raw_input = input  # Python 3
+
+
 class GiftExchange(object):
     """GiftExchange represents a gift exchange."""
 
@@ -132,7 +139,7 @@ class GiftExchange(object):
 
         (This is only pseudo-random but that's good enough).
         """
-        items = self._GIFT_EXCHANGERS.keys()
+        items = list(self._GIFT_EXCHANGERS.keys())
         shuffle(items)
         return items
 

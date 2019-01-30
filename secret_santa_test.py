@@ -211,7 +211,7 @@ def test_canSolveBenchmark1(benchmark):
     ge.add_attendee("Pebbles")
     ge.add_attendee("Bambam")
     solvable_arr = ['Barney', 'Wilma', 'Bambam', 'Betty', 'Fred', 'Pebbles']
-    result = benchmark(ge.match_attendees, solvable_arr)
+    benchmark(ge.match_attendees, solvable_arr)
     assert ge.get_unmatched_attendees_count() == 0
 
 
@@ -225,5 +225,5 @@ def test_canSolveBenchmark2(benchmark):
     ge.add_attendee("Pebbles")
     ge.add_attendee("Bambam")
     solvable_arr = ['Wilma', 'Bambam', 'Betty', 'Fred', 'Pebbles', 'Barney']
-    result = benchmark(ge.match_attendees, solvable_arr)
+    benchmark(ge.match_attendees, solvable_arr)
     assert ge.get_unmatched_attendees_count() == 0

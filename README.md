@@ -350,10 +350,11 @@ $
 - [x] Increase code coverage
 - [x] Add benchmarks for historical comparison purposes
 - [x] Refactor to extend to seasonal (rather than simply family) gatherings
-- [ ] Conform code to `pylint`
+- [x] Conform code to `pylint`
 - [x] Conform code to `pycodestyle`
 - [x] Conform code to `pydocstyle`
 - [x] Conform code to `pydoc`
+- [ ] Migrate code to Python 3
 - [ ] Optional enhancement - prevent circular gift exchanges
 - [ ] Optional enhancement - prevent intra-family gift exchanges
 - [ ] Optional enhancement - allow for more than 1 present

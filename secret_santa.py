@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# pylint: disable=C0103
+
 """
 A simple gift exchange.
 
@@ -8,12 +10,14 @@ attendee cannot receive a gift from that attendee (and vice-versa).
 Everyone else will receive a gift from a random attendee.
 """
 
+from __future__ import print_function
+
 from random import shuffle
 
 import sys
 
 
-class GiftExchange:
+class GiftExchange(object):
     """GiftExchange represents a gift exchange."""
 
     class DuplicateAttendeeException(Exception):
@@ -114,13 +118,13 @@ class GiftExchange:
         partnership_count = self.get_partnership_count()
         if attendee_count < 2:
             raise self.NoSolutionPossibleException(
-                    "Not enough attendees for a solution!")
+                "Not enough attendees for a solution!")
         if attendee_count == 2 and partnership_count == 1:
             raise self.NoSolutionPossibleException(
-                    "Not enough unpartnered attendees for a solution!")
+                "Not enough unpartnered attendees for a solution!")
         if attendee_count == 3 and partnership_count == 1:
             raise self.NoSolutionPossibleException(
-                    "Not enough unpartnered attendees for a solution!")
+                "Not enough unpartnered attendees for a solution!")
 
     def shuffle_attendees(self):
         """
@@ -137,11 +141,11 @@ class GiftExchange:
         self.check_for_valid_solution()
         self.reset_unmatched_attendees_count()
         solved = {}
-        for i in range(len(items)):
+        for i, _ in enumerate(items):
             solved[items[i]] = self.get_next_free_present_giver(items, i)
         if self.get_unmatched_attendees_count() > 0:
             raise self.SolutionNotFoundException()
-        print "Solved =", solved, "\n"
+        print("Solved =", solved, "\n")
         return solved
 
 
@@ -149,7 +153,7 @@ if __name__ == '__main__':
 
     ge = GiftExchange()
 
-    print "Enter gathering attendees and their partners"
+    print("Enter gathering attendees and their partners")
 
     while True:
         NAME = raw_input("\nAttendee (or CR to stop): ")
@@ -160,22 +164,22 @@ if __name__ == '__main__':
         if PARTNER != "":
             ge.add_partnership(NAME, PARTNER)
 
-    print "\nAll gathering attendees entered, working out exchanges\n"
+    print("\nAll gathering attendees entered, working out exchanges\n")
 
     retry = True
     while retry:
         try:
             solution = ge.match_attendees(ge.shuffle_attendees())
             for s in solution:
-                print s, "<=", solution[s]
+                print(s, "<=", solution[s])
             retry = False
         except ge.SolutionNotFoundException:
             if raw_input("Failed to solve, retry ('n' to stop)? ").strip() \
                  == "n":
-                print "Okay, stopping now"
+                print("Okay, stopping now")
                 sys.exit(1)
         except ge.NoSolutionPossibleException as nspe:
-            print nspe.args[0]
+            print(nspe.args[0])
             sys.exit(1)
 
-    print "\nI hope your gathering is successful!"
+    print("\nI hope your gathering is successful!")
